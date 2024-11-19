@@ -2,6 +2,7 @@ from openai import OpenAI
 from pydantic import BaseModel
 import json
 import streamlit as st
+import os
 OpenAI.api_key = os.getenv("OPENAI_API_KEY")
 # 标题和描述
 st.title("Hello, this is 断句 test")
