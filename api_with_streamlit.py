@@ -24,7 +24,7 @@ class Sentences(BaseModel):
     output: list[Sentence]
 
 
-completion = client.beta.chat.completions.parse(
+completion = client.chat.completions.create(
     model="gpt-4o-2024-08-06",
     messages=[
         {"role": "system", "content": "将以下文本进行分句，每个句子自然流畅，按句意完整地切分. reponse in JSON format"},
