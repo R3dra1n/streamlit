@@ -13,6 +13,22 @@ user_input = st.text_input("Enter Your AD:")
 
 client = OpenAI()
 
+# 下拉菜单
+choice = st.selectbox("选择您产品的领域:", ["普通食品", "酒类", "保健食品", "一般产品"])
+st.write(f"You chose: {choice}")
+if choice == "普通食品":
+    st.write("会执行A、B、C模块")
+
+elif choice == "酒类":
+    st.write("会执行B、C模块")
+
+elif choice == "保健食品":
+    st.write("会执行C模块")
+
+else :
+    st.write("会执行D模块")
+
+
 class Sentence(BaseModel):
     
     number: int
