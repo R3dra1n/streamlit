@@ -3,6 +3,63 @@ from pydantic import BaseModel
 import json
 import streamlit as st
 import os
+import requests
+
+def kunwu_api(api, content):
+    # api = "openapi-JbYj1Z2V0JqI2WZl7Nqgdtm6YTKsxRN5mvlih40gqyw7btkEIDO1"
+    # content = "杯子是一种专门盛水的器皿。其主要功能都是用来饮酒或饮茶，一般容积不大。或在古代喝"
+
+
+
+    # 定义 API URL
+    url = "https://ai.adlawai.cn/api/v1/chat/completions"
+
+    # 定义请求头（例如包含API密钥）
+    headers = {
+        "Authorization": f"Bearer {api}",  # 替换为你的实际 API 密钥
+        "Content-Type": "application/json"       # 指定数据格式
+    }
+
+    # 示例GET请求
+    # def make_get_request():
+    #     try:
+    #         response = requests.get(url, headers=headers, params={"param1": "value1", "param2": "value2"})
+    #         # 检查响应状态
+    #         if response.status_code == 200:
+    #             print("GET请求成功！")
+    #             print("响应数据:", response.json())  # 返回JSON格式的响应内容
+    #         else:
+    #             print(f"请求失败，状态码: {response.status_code}")
+    #     except Exception as e:
+    #         print(f"GET请求出错: {e}")
+
+    # 示例POST请求
+    
+    data = {
+        "chatId": "111",
+        "stream": False,
+        "detail": False,
+        # "variables": {
+                # "target": "保健食品",
+            # },
+        "messages": [
+        {
+        "role": "user",
+        "content": f'{content} '
+        }
+        ]
+    }
+    # 发送JSON格式的数据
+    # 打印出响应状态和内容，便于调试
+    response = requests.post(url, headers=headers, json=data)
+    print("Status Code:", response.status_code)
+    print("Content:",response.json())
+    # print("Response Text:", response.text)  # 打印原始文本内容
+    if response.status_code == 200 or response.status_code == 201:
+        # print("POST请求成功！")
+        return( response.json().get("choices", [])[0].get("message", {}).get("content", "" ))
+    else:
+        return(f"请求失败，状态码: {response.status_code}")
 
 OpenAI.api_key = os.getenv("OPENAI_API_KEY")
 # 标题和描述
@@ -11,6 +68,7 @@ st.write("Try 断句 with openai api")
 
 # 输入框
 user_input = st.text_input("Enter Your AD:")
+api = st.text_input("Enter Your KunWu API:")
 
 client = OpenAI()
 
@@ -84,15 +142,16 @@ for item in data:
     sentence = item['sentence']
     try:
         # 调用 OpenAI API
-        response = client.chat.completions.create(
-    model="gpt-4o",
-    messages=[
-        {"role": "system", "content": "翻译成英文"},
-        {"role": "user", "content": sentence}
-    ])
+    #     response = client.chat.completions.create(
+    # model="gpt-4o",
+    # messages=[
+    #     {"role": "system", "content": "翻译成英文"},
+    #     {"role": "user", "content": sentence}
+    # ])
+        result = kunwu_api(api, sentence)
         # 获取 API 的返回内容
        
-        result = response.choices[0].message.content
+        # result = response.choices[0].message.content
         
         # 将结果保存到列表
         results.append({'number': item['number'], 'input': sentence, 'output': result})
@@ -106,3 +165,6 @@ for res in results:
     st.write(f"Input: {res['input']}")
     st.write(f"Output: {res['output']}")
     st.write("-" * 20)
+
+
+
