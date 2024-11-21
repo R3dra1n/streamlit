@@ -39,9 +39,9 @@ def kunwu_api(api, content):
         "chatId": "111",
         "stream": False,
         "detail": False,
-        # "variables": {
-                # "target": "保健食品",
-            # },
+        "variables": {
+                "target": f"{target}",
+            },
         "messages": [
         {
         "role": "user",
@@ -69,6 +69,7 @@ st.write("Try 断句 with openai api")
 # 输入框
 user_input = st.text_input("Enter Your AD:")
 api = st.text_input("Enter Your KunWu API:")
+target = st.text_input("输入变量target:")
 
 client = OpenAI()
 
