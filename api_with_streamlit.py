@@ -139,7 +139,7 @@ results = []
 
 # 逐条发送 sentence 内容到 API
 for item in data:
-    sentence = item['sentence']
+    sentence = item #['sentence']
     try:
         # 调用 OpenAI API
     #     response = client.chat.completions.create(
