@@ -6,7 +6,9 @@ import os
 import requests
 
 def kunwu_api(api, content):
-    
+    # api = "openapi-JbYj1Z2V0JqI2WZl7Nqgdtm6YTKsxRN5mvlih40gqyw7btkEIDO1"
+    # content = "杯子是一种专门盛水的器皿。其主要功能都是用来饮酒或饮茶，一般容积不大。或在古代喝"
+
 
 
     # 定义 API URL
@@ -66,35 +68,35 @@ st.write("Try 断句 with openai api")
 
 # 输入框
 user_input = st.text_input("Enter Your AD:")
-
+api = st.text_input("Enter Your KunWu API:")
 target = st.text_input("输入变量target:")
 
 client = OpenAI()
 
 
 # 下拉菜单
-choice = st.selectbox("选择您产品的领域:", ["一般食品", "酒类", "保健食品", "绝对化"])
+choice = st.selectbox("选择您产品的领域:", ["普通食品", "酒类", "保健食品", "一般产品"])
 st.write(f"You chose: {choice}")
-if choice == "一般食品":
-    api = "openapi-LWD7WDhKg9YxVCrM4r0x7WPsqZd2EQHClI0Ggq32jTrBQRsueguLz5mag00TQiNAO"
-    st.write("api = openapi-LWD7WDhKg9YxVCrM4r0x7WPsqZd2EQHClI0Ggq32jTrBQRsueguLz5mag00TQiNAO")
-
-elif choice == "保健食品":
-    st.write("api = openapi-D0ikRFPICBQ0eKFu9u2A4jeR3GtY2fZ5NPuccT1cFn32nrgLePI9T")
-    api = "openapi-D0ikRFPICBQ0eKFu9u2A4jeR3GtY2fZ5NPuccT1cFn32nrgLePI9T"
+if choice == "普通食品":
+    st.write("会执行A、B、C模块")
 
 elif choice == "酒类":
-    st.write("api = openapi-MdMTrZEvpv4hH1r2kQNBAgSRfeUnIsMATZjstm0r8V9JtTC2QrOt")
-    api = "openapi-MdMTrZEvpv4hH1r2kQNBAgSRfeUnIsMATZjstm0r8V9JtTC2QrOt"
+    st.write("会执行B、C模块")
+
+elif choice == "保健食品":
+    st.write("会执行C模块")
 
 else :
-    st.write("api = openapi-pgppK3hoOl7TPMtJNNzfxnuXN3PqKuI8wBePnhPlIxptXiZvo5y3")
-    api = "openapi-pgppK3hoOl7TPMtJNNzfxnuXN3PqKuI8wBePnhPlIxptXiZvo5y3"
+    st.write("会执行D模块")
 
 class Sentence(BaseModel):    
     number: int
     sentence: str
     
+
+
+
+
 class Sentences(BaseModel):
     output: list[Sentence]
 
