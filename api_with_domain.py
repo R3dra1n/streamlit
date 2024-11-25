@@ -67,7 +67,7 @@ st.write("Try 断句 with openai api")
 # 输入框
 user_input = st.text_input("Enter Your AD:")
 
-target = st.text_input("输入变量target:")
+# target = st.text_input("输入变量target:")
 
 client = OpenAI()
 
